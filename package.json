@@ -1,0 +1,27 @@
+{
+  "name": "memory_play",
+  "version": "0.1.0",
+  "description": "Test task for Creative",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "play",
+    "test_task",
+    "creative_company"
+  ],
+  "author": "Ayur Gonchikov <gonchikov@inbox.ru>",
+  "license": "ISC",
+  "dependencies": {
+    "feather-icons-react": "^0.4.3",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
+}
