@@ -25,7 +25,7 @@ const Field = () => {
           <div key={i} style={{ display: "flex" }}>
             {arrCol.map((_, i) => {
               const indexNumber = getRandomInt(18);
-              return <Cell key={i} index={indexNumber} />;
+              return <Cell key={i} index={indexNumber}/>;
             })}
           </div>
         ))}
