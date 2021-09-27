@@ -8,7 +8,7 @@ const Board = () => {
   return (
     <>
       <Topbar />
-      <Field />
+      <Field squareInt={4}/>
       <Footer />
     </>
   );
