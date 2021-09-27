@@ -1,50 +1,39 @@
+import Grid from "@material-ui/core/Grid";
 import React from "react";
 import Cell from "./Cell";
-import { IconsName } from "./IconsName";
 
 const Field = (props) => {
-  const { squareInt, ...rest } = props;
-  const squareArr = [];
-  const arrIconsName = [];
+  const { squareInt, arrIcons, getRandomInt, ...rest } = props;
   const arrIconsToCell = [];
+  console.log("field", arrIcons);
 
-  const getRandomInt = (max) => {
-    return Math.floor(Math.random() * max);
+  const getArrayRandom = () => {
+    const arrCopy = arrIcons.slice(),
+      arrCopy2 = arrIcons.slice();
+
+    for (let i = 0; i < squareInt ** 2; i++) {
+      if (i % 2) {
+        const index = getRandomInt(arrCopy.length);
+        arrIconsToCell.push(arrCopy[index]);
+        arrCopy.splice(index, 1);
+        continue;
+      }
+      const index = getRandomInt(arrCopy2.length);
+      arrIconsToCell.push(arrCopy2[index]);
+      arrCopy2.splice(index, 1);
+    }
   };
 
-  for (let i = 0; i < (squareInt * squareInt) / 2; i++) {
-    let index = getRandomInt(IconsName.length);
-    if (i) {
-      while (arrIconsName.includes(index)) {
-        index = getRandomInt(IconsName.length);
-      }
-      arrIconsName.push(index);
-      continue;
-    }
-    arrIconsName.push(index);
-  }
-
-  for (let i = 0; i < squareInt; i++) {
-    squareArr.push(i);
-  }
-
-  for (let i = 0; i < squareInt * squareInt; i++) {}
-
-  console.log(arrIconsName);
+  getArrayRandom();
 
   return (
-    <div>
-      <div>
-        {squareArr.map((el, i) => (
-          <div key={i} style={{ display: "flex" }}>
-            {squareArr.map((_, i) => {
-              const indexNumber = getRandomInt(18);
-              return <Cell key={i} index={indexNumber} />;
-            })}
-          </div>
-        ))}
-      </div>
-    </div>
+    <Grid container rowSpacing={4} columnSpacing={4} sx={{marginTop: "3rem"}}>
+      {Array.from(Array(squareInt ** 2)).map((_, i) => (
+        <Grid item key={i} xs={3}>
+          <Cell index={arrIconsToCell[i]} />
+        </Grid>
+      ))}
+    </Grid>
   );
 };
 
