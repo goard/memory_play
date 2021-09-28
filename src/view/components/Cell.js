@@ -14,9 +14,11 @@ const Cell = (props) => {
     indexIcons,
     count,
     setCount,
+    func,
     ...rest
   } = props;
   const [state, setState] = useState(true);
+  // const [count, setCount] = useState(0);
 
   /**
    * Handler on event click Button
@@ -24,18 +26,19 @@ const Cell = (props) => {
    */
   const clickHandler = () => {
     if (state) {
-      console.log("state to if", state);
       setIndex((prev) => {
         const diff = indexIcons - prev;
         if (diff === 0) {
-          setPrevIndex(prev);
+          func(prev);
           return 0;
         }
-        return diff;
+        return indexIcons;
       });
+      setCount(count + 1);
+      setState(false);
+      return;
     }
-    setCount(count + 1);
-    setState((prev) => !prev);
+    setState(false);
     console.log("state", state);
   };
 
@@ -47,11 +50,12 @@ const Cell = (props) => {
     const timeout = setTimeout(() => {
       setState(true);
       setIndex(0);
+      setCount(0);
     }, 5000);
     return () => clearTimeout(timeout);
   }, [state, count]);
 
-  // console.log(index);
+  console.log("state", state);
 
   return (
     <Paper elevation={6} sx={{ textAlign: "center", padding: "5px" }}>

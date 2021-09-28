@@ -6,15 +6,15 @@ import { IconsName } from "./view/components/IconsName";
 
 export default function App() {
   const [stateIndex, setStateIndex] = useState(null);
-  const [prevIndex, setPrevIndex] = useState(null);
+  // const [removeCardFunc, removeCardFunc] = useState(null);
   const [arr, setArr] = useState(null);
   const [squareInt, setSquareInt] = useState(4);
 
-  const removeCard = () => {
+  const removeCard = (idx) => {
     if (stateIndex === 0) {
       const arrayCopy = arr.slice();
-      while (arrayCopy.indexOf(prevIndex) !== -1) {
-        const idx = arrayCopy.indexOf(prevIndex);
+      while (arrayCopy.indexOf(idx) !== -1) {
+        const idx = arrayCopy.indexOf(idx);
         arrayCopy.splice(idx, 1, "");
       }
       setArr(arrayCopy);
@@ -22,16 +22,15 @@ export default function App() {
     }
   };
 
-  useEffect(() => {
-    if (Array.isArray(arr)) removeCard();
-  }, [prevIndex]);
+  // useEffect(() => {
+  //   if (Array.isArray(arr)) removeCard();
+  //   setStateIndex((prev) => console.log("prev", prev));
+  // }, [prevIndex]);
 
   useEffect(() => {
     const arrRandomIcons = getRandomIconsArray(IconsName, squareInt);
     setArr(getArrayRandom(arrRandomIcons, squareInt));
   }, []);
-
-  console.log(stateIndex);
 
   return (
     // <ContextProvider>
@@ -40,7 +39,8 @@ export default function App() {
         arrIcons={arr}
         squareInt={squareInt}
         setIndex={setStateIndex}
-        setPrevIndex={setPrevIndex}
+        // setPrevIndex={setPrevIndex}
+        func={removeCard}
       />
     )
     // </ContextProvider>
