@@ -6,7 +6,7 @@ const Timer = () => {
   const [seconds, setSeconds] = useState(0);
 
   /**
-   * Counter auto every second after 5 minute reset
+   * Counter function stopwatch auto every second after 5 minute reset
    * @returns
    */
   const stopwatch = () => {
@@ -24,11 +24,9 @@ const Timer = () => {
   };
 
   useEffect(() => {
-    const timer = setInterval(() => stopwatch(), 1000);
+    const timer = setTimeout(() => stopwatch(), 1000);
     return () => clearTimeout(timer);
   }, [seconds, minute]);
-
-  console.log("minute", minute);
 
   return (
     <Typography>{`${minute < 10 ? "0" + minute : minute}:${
