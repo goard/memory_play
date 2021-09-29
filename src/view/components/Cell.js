@@ -6,68 +6,50 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
 const Cell = (props) => {
-  const {
-    index,
-    hidden,
-    setIndex,
-    setPrevIndex,
-    indexIcons,
-    count,
-    setCount,
-    func,
-    ...rest
-  } = props;
+  const { hiddenAll, indexIcons, count, setCount, func, setIndex, ...rest } =
+    props;
   const [state, setState] = useState(true);
-  // const [count, setCount] = useState(0);
 
   /**
    * Handler on event click Button
    * @param {state, getIndex} indexIcons
    */
   const clickHandler = () => {
-    if (state) {
-      setIndex((prev) => {
-        const diff = indexIcons - prev;
-        if (diff === 0) {
-          func(prev);
-          return 0;
-        }
-        return indexIcons;
-      });
-      setCount(count + 1);
-      setState(false);
-      return;
-    }
     setState(false);
-    console.log("state", state);
+    setCount(count + 1);
+    setIndex((prev) => {
+      const diff = indexIcons - prev;
+      if (diff === 0) func(indexIcons);
+      return indexIcons;
+    });
   };
-
   useEffect(() => {
     if (count === 2) {
       setState(true);
       setCount(0);
+      setIndex(0);
     }
     const timeout = setTimeout(() => {
       setState(true);
-      setIndex(0);
       setCount(0);
+      setIndex(0);
     }, 5000);
     return () => clearTimeout(timeout);
   }, [state, count]);
 
-  console.log("state", state);
+  console.log("count", count);
 
   return (
     <Paper elevation={6} sx={{ textAlign: "center", padding: "5px" }}>
       <Button
         onClick={() => {
-          hidden && state && clickHandler();
+          hiddenAll && state && clickHandler();
         }}
         sx={{ width: "100%" }}
       >
         {Number.isInteger(indexIcons) && (
           <FeatherIcon
-            icon={hidden && state ? "" : IconsName[indexIcons]}
+            icon={hiddenAll && state ? "" : IconsName[indexIcons]}
             size="100"
           />
         )}

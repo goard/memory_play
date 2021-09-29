@@ -5,7 +5,7 @@ import Footer from "./components/Footer";
 import Container from "@material-ui/core/Container";
 
 const Board = (props) => {
-  const { arrIcons, squareInt, setIndex, setPrevIndex, func } = props;
+  const { arrIcons, squareInt, func } = props;
   const [startPlay, setStartPlay] = useState(false);
 
   return (
@@ -15,8 +15,6 @@ const Board = (props) => {
         squareInt={squareInt}
         arrIcons={arrIcons}
         start={startPlay}
-        setIndex={setIndex}
-        setPrevIndex={setPrevIndex}
         func={func}
       />
       <Footer />

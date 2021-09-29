@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Cell from "./Cell";
 
 const Field = (props) => {
-  const { squareInt, arrIcons, start, setIndex, setPrevIndex, func, ...rest } =
-    props;
+  const { squareInt, arrIcons, start, func, ...rest } = props;
   const [count, setCount] = useState(0);
+  const [index, setIndex] = useState(0);
   console.log("field", arrIcons);
 
+  
   return (
     <Grid
       container
@@ -18,13 +19,12 @@ const Field = (props) => {
       {Array.from(Array(squareInt ** 2)).map((_, i) => (
         <Grid item key={i} xs={12 / squareInt}>
           <Cell
+            setIndex={setIndex}
+            indexIcons={arrIcons[i]}
+            hiddenAll={start}
+            func={func}
             count={count}
             setCount={setCount}
-            indexIcons={arrIcons[i]}
-            hidden={start}
-            setIndex={setIndex}
-            setPrevIndex={setPrevIndex}
-            func={func}
           />
         </Grid>
       ))}
