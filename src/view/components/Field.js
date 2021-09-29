@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import Grid from "@material-ui/core/Grid";
 import Cell from "./Cell";
+import { useMain } from "../../context/ContextProvider";
 
 const Field = (props) => {
-  const { squareInt, arrIcons, start, checkGuessed } = props;
-  const [count, setCount] = useState(0);
+  const { start } = props;
+  const { stateArray, squareInt } = useMain();
   const [index, setIndex] = useState(0);
+  const timeout = useRef(null);
 
   return (
     <Grid
@@ -18,11 +20,9 @@ const Field = (props) => {
         <Grid item key={i} xs={12 / squareInt}>
           <Cell
             setIndex={setIndex}
-            indexIcons={arrIcons[i]}
+            arrayObjIcons={stateArray[i]}
             hiddenAll={start}
-            checkGuessed={checkGuessed}
-            count={count}
-            setCount={setCount}
+            timeout={timeout}
           />
         </Grid>
       ))}

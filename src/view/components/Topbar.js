@@ -5,11 +5,16 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Timer from "./Timer";
+import { useMain } from "../../context/ContextProvider";
 
 const Topbar = (props) => {
   const { start, setStart } = props;
+  const { dispatchArray } = useMain();
 
   const startHandler = () => {
+    dispatchArray({
+      type: "hiddenAll",
+    });
     setStart(true);
   };
 

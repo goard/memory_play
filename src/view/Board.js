@@ -5,18 +5,13 @@ import Footer from "./components/Footer";
 import Container from "@material-ui/core/Container";
 
 const Board = (props) => {
-  const { arrIcons, squareInt, checkGuessed } = props;
+  const { ...rest } = props;
   const [startPlay, setStartPlay] = useState(false);
 
   return (
     <Container>
       <Topbar start={startPlay} setStart={setStartPlay} />
-      <Field
-        squareInt={squareInt}
-        arrIcons={arrIcons}
-        start={startPlay}
-        checkGuessed={checkGuessed}
-      />
+      <Field start={startPlay} />
       <Footer />
     </Container>
   );
