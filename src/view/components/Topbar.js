@@ -23,6 +23,7 @@ const Topbar = (props) => {
       <Toolbar>
         <Typography>Memory</Typography>
         <Box sx={{ flex: "1" }} />
+        <Typography color="#f5d3d3" sx={{ marginRight: "5rem" }}>Error: </Typography>
         {!start && (
           <Button onClick={startHandler} variant="contained" color="warning">
             Start

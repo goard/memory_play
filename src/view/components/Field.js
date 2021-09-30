@@ -5,7 +5,7 @@ import { useMain } from "../../context/ContextProvider";
 
 const Field = (props) => {
   const { start } = props;
-  const { stateArray, squareInt } = useMain();
+  const { stateArray, initStart } = useMain();
   const [index, setIndex] = useState(0);
   const timeout = useRef(null);
 
@@ -16,8 +16,8 @@ const Field = (props) => {
       columnSpacing={4}
       sx={{ marginTop: "0.75rem" }}
     >
-      {Array.from(Array(squareInt ** 2)).map((_, i) => (
-        <Grid item key={i} xs={12 / squareInt}>
+      {Array.from(Array(initStart.square ** 2)).map((_, i) => (
+        <Grid item key={i} xs={12 / initStart.square}>
           <Cell
             setIndex={setIndex}
             arrayObjIcons={stateArray[i]}

@@ -3,10 +3,14 @@ import Topbar from "./components/Topbar";
 import Field from "./components/Field";
 import Footer from "./components/Footer";
 import Container from "@material-ui/core/Container";
+import StartInitial from "./components/StartInitial";
+import { useMain } from "../context/ContextProvider";
 
-const Board = (props) => {
-  const { ...rest } = props;
+const BoardView = () => {
   const [startPlay, setStartPlay] = useState(false);
+  const { initStart } = useMain();
+
+  if (!initStart.ready) return <StartInitial />;
 
   return (
     <Container>
@@ -17,4 +21,4 @@ const Board = (props) => {
   );
 };
 
-export default Board;
+export default BoardView;

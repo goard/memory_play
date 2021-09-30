@@ -5,7 +5,8 @@ import { IconsName } from "../asset/IconsName";
 
 const MainContext = createContext();
 
-const getRandomIcons = (squareInt) => {
+const getRandomIcons = (square) => {
+  const squareInt = parseInt(square, 10);
   const arrRandomIcons = getRandomIconsArray(IconsName, squareInt);
   return getArrayRandom(arrRandomIcons, squareInt);
 };
@@ -16,17 +17,23 @@ export const useMain = () => {
 
 const ContextProvider = ({ children }) => {
   // Hard-coded the size of the field
-  const [squareInt, setSquareInt] = useState(4);
+  const [initStart, setInitStart] = useState({
+    square: "4",
+    login: "",
+    ready: false,
+  });
   const [stateArray, dispatchArray] = useReducer(
     reducerArray,
-    getRandomIcons(squareInt)
+    initStart.square ? getRandomIcons(initStart.square) : []
   );
   const [stateCount, dispatchCount] = useReducer(reducerCount, 0);
+  
   return (
     <MainContext.Provider
       value={{
+        initStart,
+        setInitStart,
         stateArray,
-        squareInt,
         dispatchArray,
         stateCount,
         dispatchCount,
