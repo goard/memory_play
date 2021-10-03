@@ -14,7 +14,7 @@ import Box from "@material-ui/core/Box";
 import { useMain } from "../../context/ContextProvider";
 
 const StartInitial = () => {
-  const { initStart, setInitStart } = useMain();
+  const { initStart, setInitStart, dispatchArray } = useMain();
 
   const changeHandler = (event) => {
     setInitStart({ ...initStart, [event.target.name]: event.target.value });
@@ -23,12 +23,18 @@ const StartInitial = () => {
   const submitHandler = (event) => {
     event.preventDefault();
     setInitStart({ ...initStart, ready: true });
+    if (initStart.square === "6")
+      dispatchArray({
+        type: "createFieldTo6x6",
+      });
   };
+
+  console.log(initStart);
 
   return (
     <Container>
       <Paper sx={{ padding: "4rem", backgroundColor: "#dedeff" }}>
-        <Typography align="center">Start play memory</Typography>
+        <Typography align="center">Start "Memory"</Typography>
         <form onSubmit={submitHandler}>
           <TextField
             name="login"

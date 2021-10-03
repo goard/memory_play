@@ -26,12 +26,12 @@ export const getArrayRandom = (arr, squareInt) => {
   for (let i = 0; i < squareInt ** 2; i++) {
     if (i % 2) {
       const index = getRandomInt(arrCopy.length);
-      arrIconsToCell.push({ id: i, icons: arrCopy[index], hidden: false });
+      arrIconsToCell.push({ id: i, icon: arrCopy[index], hidden: false });
       arrCopy.splice(index, 1);
       continue;
     }
     const index = getRandomInt(arrCopy2.length);
-    arrIconsToCell.push({ id: i, icons: arrCopy2[index], hidden: false });
+    arrIconsToCell.push({ id: i, icon: arrCopy2[index], hidden: false });
     arrCopy2.splice(index, 1);
   }
   return arrIconsToCell;

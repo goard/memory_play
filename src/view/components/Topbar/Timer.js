@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
+import { useMain } from "../../../context/ContextProvider";
 
 const Timer = () => {
-  const [minute, setMinute] = useState(0);
-  const [seconds, setSeconds] = useState(0);
+  const { seconds, setSeconds, minute, setMinute, setTimerId } = useMain();
 
   /**
    * Counter function stopwatch auto every second after 5 minute reset
@@ -25,6 +25,7 @@ const Timer = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => stopwatch(), 1000);
+    setTimerId(timer);
     return () => clearTimeout(timer);
   }, [seconds, minute]);
 

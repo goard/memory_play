@@ -1,8 +1,20 @@
+import { getArrayRandom, getRandomIconsArray } from "../utils";
+import { IconsName } from "../asset/IconsName";
+
+const getRandomIcons = (square) => {
+  const squareInt = parseInt(square, 10);
+  const arrRandomIcons = getRandomIconsArray(IconsName, squareInt);
+  return getArrayRandom(arrRandomIcons, squareInt);
+};
+
 export function reducerArray(state, action) {
   switch (action.type) {
+    case "createFieldTo6x6":
+      const arr = getRandomIcons(6);
+      return (state = arr.slice());
     case "removeCard":
       return state.map((el) => {
-        if (el.icons === action.payload) el.icons = "";
+        if (el.icon === action.payload) el.icon = "";
         return el;
       });
     case "hiddenAll":
@@ -34,7 +46,7 @@ export function reducerArray(state, action) {
   }
 }
 
-export function reducerCount(state, action) {
+export function reducerCountError(state, action) {
   switch (action.type) {
     case "increment":
       return state + 1;

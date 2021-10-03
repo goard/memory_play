@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import Container from "@material-ui/core/Container";
 import Topbar from "./components/Topbar";
 import Field from "./components/Field";
 import Footer from "./components/Footer";
-import Container from "@material-ui/core/Container";
 import StartInitial from "./components/StartInitial";
 import { useMain } from "../context/ContextProvider";
 
@@ -15,8 +15,8 @@ const BoardView = () => {
   return (
     <Container>
       <Topbar start={startPlay} setStart={setStartPlay} />
-      <Field start={startPlay} />
-      <Footer />
+      <Field start={startPlay}/>
+      {/* <Footer /> */}
     </Container>
   );
 };

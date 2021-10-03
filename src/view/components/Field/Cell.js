@@ -3,17 +3,17 @@ import FeatherIcon from "feather-icons-react";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { IconsName } from "../../asset/IconsName";
-import { useMain } from "../../context/ContextProvider";
+import { IconsName } from "../../../asset/IconsName";
+import { useMain } from "../../../context/ContextProvider";
 
 const Cell = (props) => {
-  const { arrayObjIcons, setIndex, timeout } = props;
+  const { arrayObjIcons, setIndex, timeout, countClick } = props;
   const [state, setState] = useState(true);
-  const { dispatchArray, stateCount, dispatchCount } = useMain();
+  const { dispatchArray, dispatchCountError } = useMain();
 
   /**
    * Handler on event click Button
-   * @param {state, getIndex} arrayObjIcons.icons
+   * @param {state, getIndex} arrayObjIcons.icon
    */
   const clickHandler = () => {
     setState(false);
@@ -21,40 +21,39 @@ const Cell = (props) => {
       type: "showCard",
       payload: arrayObjIcons.id,
     });
-    dispatchCount({
-      type: "increment",
-    });
+    countClick.current++;
     setIndex((prev) => {
-      const diff = arrayObjIcons.icons - prev;
+      const diff = arrayObjIcons.icon - prev;
       if (diff === 0) {
         dispatchArray({
           type: "removeCard",
-          payload: arrayObjIcons.icons,
+          payload: arrayObjIcons.icon,
         });
+        return diff;
       }
-      return arrayObjIcons.icons;
+      if (countClick.current === 2)
+        dispatchCountError({
+          type: "increment",
+        });
+      return arrayObjIcons.icon;
     });
   };
 
   useEffect(() => {
-    if (stateCount === 2) {
+    if (countClick.current === 2) {
       setState(true);
       setIndex(0);
       dispatchArray({
         type: "hiddenAll",
       });
-      dispatchCount({
-        type: "reset",
-      });
+      countClick.current = 0;
       clearTimeout(timeout.current);
       return;
     }
     if (!state) {
       setState(true);
       timeout.current = setTimeout(() => {
-        dispatchCount({
-          type: "reset",
-        });
+        countClick.current = 0;
         dispatchArray({
           type: "hiddenAll",
         });
@@ -64,28 +63,28 @@ const Cell = (props) => {
         clearTimeout(timeout.current);
       };
     }
-  }, [stateCount]);
+  }, [countClick.current]);
 
-  console.log("indexIcon", arrayObjIcons);
-  // console.log("count", countClick);
+  // console.log("indexIcon", arrayObjIcons);
+  // console.log("count", countClick.current);
 
   return (
     <Paper elevation={6} sx={{ textAlign: "center", padding: "5px" }}>
       <Button
         onClick={() => {
           arrayObjIcons.hidden &&
-            Number.isInteger(arrayObjIcons.icons) &&
+            Number.isInteger(arrayObjIcons.icon) &&
             clickHandler();
         }}
         sx={{ width: "100%" }}
       >
-        {Number.isInteger(arrayObjIcons.icons) && (
+        {Number.isInteger(arrayObjIcons.icon) && (
           <FeatherIcon
-            icon={arrayObjIcons.hidden ? "" : IconsName[arrayObjIcons.icons]}
+            icon={arrayObjIcons.hidden ? "" : IconsName[arrayObjIcons.icon]}
             size="100"
           />
         )}
-        {arrayObjIcons.icons === "" && (
+        {arrayObjIcons.icon === "" && (
           <Typography height="100px" width="100px">
             Guessed
           </Typography>
