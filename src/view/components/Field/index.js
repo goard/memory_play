@@ -9,9 +9,8 @@ const Field = () => {
     stateArray,
     initStart,
     startPlay,
-    timerId,
-    seconds,
-    minutes,
+    secondsRef,
+    minutesRef,
     stateCountError,
   } = useMain();
   const [showSuccess, setShowSuccess] = useState(false);
@@ -19,15 +18,7 @@ const Field = () => {
   const timeout = useRef(null);
   const countClick = useRef(0);
 
-  useEffect(() => {
-    const success = stateArray.reduce((prev, cur) => {
-      return { icon: prev.icon + cur.icon };
-    });
-    if (success.icon === "") {
-      setShowSuccess(true);
-      clearTimeout(timerId);
-    }
-  }, [countClick.current]);
+  console.log("count", countClick);
 
   return (
     <Grid container rowSpacing={4} columnSpacing={4} sx={{ marginTop: "3rem" }}>
@@ -39,14 +30,15 @@ const Field = () => {
             hiddenAll={startPlay}
             timeout={timeout}
             countClick={countClick}
+            setShowSuccess={setShowSuccess}
           />
         </Grid>
       ))}
       <SuccessModal
         open={showSuccess}
         setOpen={setShowSuccess}
-        seconds={seconds}
-        minutes={minutes}
+        seconds={secondsRef.current}
+        minutes={minutesRef.current}
         stateCountError={stateCountError}
       />
     </Grid>

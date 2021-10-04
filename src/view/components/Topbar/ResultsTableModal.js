@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Modal,
   Table,
@@ -22,7 +22,19 @@ const style = {
 };
 
 const ResultTableModal = ({ open, setOpen }) => {
+  const [form, setForm] = useState({
+    login: "",
+    minutes: "",
+    seconds: "",
+    error: "",
+  });
+  const [arrData, setArrData] = useState([]);
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    const dataUsers = JSON.parse(localStorage.getItem("users"));
+    if (dataUsers) setArrData(dataUsers);
+  }, []);
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -35,7 +47,20 @@ const ResultTableModal = ({ open, setOpen }) => {
               <TableCell>Time</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody></TableBody>
+          <TableBody>
+            {arrData.length > 0 &&
+              arrData.map((row, i) => (
+                <TableRow key={i}>
+                  <TableCell>{row.login}</TableCell>
+                  <TableCell>{row.error}</TableCell>
+                  <TableCell>
+                    {`${row.minutes < 10 ? "0" + row.minutes : row.minutes}:${
+                      row.seconds < 10 ? "0" + row.seconds : row.seconds
+                    }`}
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
         </Table>
       </TableContainer>
     </Modal>

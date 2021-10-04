@@ -1,6 +1,12 @@
 # memory_play
+# Demo
+
+# video
+
 
 This project use web application bundler the parcel
+
+Results play save to window.localStorage.
 
 ##Available Scripts
 
@@ -15,3 +21,5 @@ The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
 ### `npm build`
+
+Builds the app for production to the `dist` folder. 

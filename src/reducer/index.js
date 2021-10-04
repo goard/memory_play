@@ -56,3 +56,14 @@ export function reducerCountError(state, action) {
       return state;
   }
 }
+
+export function reducerCountClick(state, action) {
+  switch (action.type) {
+    case "increment":
+      return state + 1;
+    case "reset":
+      return (state = 0);
+    default:
+      return state;
+  }
+}

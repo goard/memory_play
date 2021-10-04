@@ -7,9 +7,19 @@ import { IconsName } from "../../../asset/IconsName";
 import { useMain } from "../../../context/ContextProvider";
 
 const Cell = (props) => {
-  const { arrayObjIcons, setIndex, timeout, countClick } = props;
+  const { arrayObjIcons, setIndex, timeout, countClick, setShowSuccess } =
+    props;
   const [state, setState] = useState(true);
-  const { dispatchArray, dispatchCountError } = useMain();
+  const {
+    dispatchArray,
+    dispatchCountError,
+    stateArray,
+    timerId,
+    initStart,
+    minutesRef,
+    secondsRef,
+    stateCountError,
+  } = useMain();
 
   /**
    * Handler on event click Button
@@ -63,10 +73,26 @@ const Cell = (props) => {
         clearTimeout(timeout.current);
       };
     }
-  }, [countClick.current]);
-
-  // console.log("indexIcon", arrayObjIcons);
-  // console.log("count", countClick.current);
+    const success = stateArray.reduce((prev, cur) => {
+      return { icon: prev.icon + cur.icon };
+    });
+    if (success.icon === "") {
+      setShowSuccess(true);
+      clearTimeout(timerId.current);
+      let arr = [];
+      const dataUsers = JSON.parse(localStorage.getItem("users"));
+      if (!dataUsers) localStorage.setItem("users", JSON.stringify(arr));
+      arr = JSON.parse(localStorage.getItem("users")) || [];
+      let obj = {
+        login: initStart.login,
+        minutes: minutesRef.current,
+        seconds: secondsRef.current,
+        error: stateCountError,
+      };
+      arr.push(obj);
+      localStorage.setItem("users", JSON.stringify(arr));
+    }
+  }, [state]);
 
   return (
     <Paper elevation={6} sx={{ textAlign: "center", padding: "5px" }}>

@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 
 const style = {
   position: "absolute",
@@ -15,13 +16,13 @@ const style = {
   p: 4,
 };
 
-const SuccessModal = ({ open, setOpen, seconds, minutes, stateCountError }) => {
-  const closeHandler = () => {
-    setOpen(fasle);
+const SuccessModal = ({ open, seconds, minutes, stateCountError }) => {
+  const clickHandler = () => {
+    location.reload();
   };
 
   return (
-    <Modal open={open} onClose={closeHandler}>
+    <Modal open={open}>
       <Box sx={style}>
         <Typography align="center">Good job graduation!!!</Typography>
         <Typography>
@@ -31,6 +32,11 @@ const SuccessModal = ({ open, setOpen, seconds, minutes, stateCountError }) => {
           }`}
         </Typography>
         <Typography>Error: {stateCountError}</Typography>
+        <Box display="flex" justifyContent="center" sx={{ marginTop: "15px" }}>
+          <Button variant="contained" color="success" onClick={clickHandler}>
+            New play
+          </Button>
+        </Box>
       </Box>
     </Modal>
   );

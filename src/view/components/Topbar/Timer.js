@@ -3,20 +3,22 @@ import Typography from "@material-ui/core/Typography";
 import { useMain } from "../../../context/ContextProvider";
 
 const Timer = () => {
-  const { seconds, setSeconds, minute, setMinute, setTimerId } = useMain();
+  const { timerId, secondsRef, minutesRef } = useMain();
+  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(0);
 
   /**
-   * Counter function stopwatch auto every second after 5 minute reset
+   * Counter function stopwatch auto every second after 50 minute reset
    * @returns
    */
   const stopwatch = () => {
     if (seconds === 59) {
       setSeconds(0);
-      setMinute(minute + 1);
+      setMinutes(minutes + 1);
       return;
     }
-    if (minute === 5) {
-      setMinute(0);
+    if (minutes === 50) {
+      setMinutes(0);
       setSeconds(1);
       return;
     }
@@ -25,12 +27,14 @@ const Timer = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => stopwatch(), 1000);
-    setTimerId(timer);
+    timerId.current = timer;
+    secondsRef.current = seconds;
+    minutesRef.current = minutes;
     return () => clearTimeout(timer);
-  }, [seconds, minute]);
+  }, [seconds]);
 
   return (
-    <Typography>{`${minute < 10 ? "0" + minute : minute}:${
+    <Typography>{`${minutes < 10 ? "0" + minutes : minutes}:${
       seconds < 10 ? "0" + seconds : seconds
     }`}</Typography>
   );

@@ -29,8 +29,6 @@ const StartInitial = () => {
       });
   };
 
-  console.log(initStart);
-
   return (
     <Container>
       <Paper sx={{ padding: "4rem", backgroundColor: "#dedeff" }}>

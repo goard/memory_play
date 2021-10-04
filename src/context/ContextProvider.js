@@ -1,5 +1,11 @@
-import React, { useState, useContext, useReducer, createContext } from "react";
-import { reducerArray, reducerCountError } from "../reducer";
+import React, {
+  useState,
+  useRef,
+  useContext,
+  useReducer,
+  createContext,
+} from "react";
+import { reducerArray, reducerCountClick, reducerCountError } from "../reducer";
 import { getArrayRandom, getRandomIconsArray } from "../utils";
 import { IconsName } from "../asset/IconsName";
 
@@ -9,23 +15,6 @@ const getRandomIcons = (square) => {
   const squareInt = parseInt(square, 10);
   const arrRandomIcons = getRandomIconsArray(IconsName, squareInt);
   return getArrayRandom(arrRandomIcons, squareInt);
-};
-
-/**
- * 
- * @param {*} login 
- * @param {*} seconds 
- * @param {*} minutes 
- * @param {*} countError 
- */
-const setLocalStorage = (login, seconds, minutes, countError) => {
-  // let arr = [];
-  let obj = {
-    login: login,
-    seconds: seconds,
-    minutes: minutes,
-    countError: countError,
-  };
 };
 
 export const useMain = () => {
@@ -40,15 +29,21 @@ const ContextProvider = ({ children }) => {
     ready: false,
   });
   const [startPlay, setStartPlay] = useState(false);
-  const [minute, setMinute] = useState(0);
-  const [seconds, setSeconds] = useState(0);
-  const [timerId, setTimerId] = useState(null);
+  //seconds, minutes, timerId render every seconds
+  const minutesRef = useRef(0);
+  const secondsRef = useRef(0);
+  const timerId = useRef(null);
+
   const [stateArray, dispatchArray] = useReducer(
     reducerArray,
     initStart.square ? getRandomIcons(initStart.square) : []
   );
   const [stateCountError, dispatchCountError] = useReducer(
     reducerCountError,
+    0
+  );
+  const [stateCountClick, dispatchCountClick] = useReducer(
+    reducerCountClick,
     0
   );
 
@@ -61,14 +56,13 @@ const ContextProvider = ({ children }) => {
         dispatchArray,
         stateCountError,
         dispatchCountError,
+        stateCountClick,
+        dispatchCountClick,
         startPlay,
         setStartPlay,
-        minute,
-        setMinute,
-        seconds,
-        setSeconds,
+        minutesRef,
+        secondsRef,
         timerId,
-        setTimerId,
       }}
     >
       {children}

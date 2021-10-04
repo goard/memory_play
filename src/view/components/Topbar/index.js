@@ -12,9 +12,8 @@ import ResultTableModal from "./ResultsTableModal";
 
 const Topbar = () => {
   const [showModal, setShowModal] = useState(false);
-  const { initStart, dispatchArray, stateCountError, startPlay, setStartPlay } =
-    useMain();
-    
+  const { dispatchArray, stateCountError, startPlay, setStartPlay } = useMain();
+
   const startHandler = () => {
     dispatchArray({
       type: "hiddenAll",
@@ -23,11 +22,8 @@ const Topbar = () => {
   };
 
   const clickHandler = (event) => {
+    event.preventDefault();
     setShowModal(true);
-  };
-
-  const closeHandler = () => {
-    setShowPopover(null);
   };
 
   return (
