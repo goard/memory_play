@@ -1,8 +1,10 @@
-# memory_play
-# Demo
+# Memory_play
 
-# video
+## Demo
 
+## video
+
+## Available Scripts
 
 This project use web application bundler the parcel
 
@@ -22,4 +24,4 @@ You will also see any lint errors in the console.
 
 ### `npm build`
 
-Builds the app for production to the `dist` folder. 
+Builds the app for production to the `dist` folder.
