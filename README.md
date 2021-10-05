@@ -5,6 +5,7 @@ Results play save to window.localStorage.
 
 ## Demo
 
+This web app hosting to network ipfs.
 Available demo to [https://bafybeigktaa2lfv2y6l753s5ynex256pd3lsa5lcfcfvfi65cwiok4pkqm.ipfs.infura-ipfs.io/](https://bafybeigktaa2lfv2y6l753s5ynex256pd3lsa5lcfcfvfi65cwiok4pkqm.ipfs.infura-ipfs.io/) to view it in the browser.
 
 ## Video
