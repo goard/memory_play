@@ -7,7 +7,9 @@ Results play save to window.localStorage.
 
 Available demo to [https://bafybeigktaa2lfv2y6l753s5ynex256pd3lsa5lcfcfvfi65cwiok4pkqm.ipfs.infura-ipfs.io/](https://bafybeigktaa2lfv2y6l753s5ynex256pd3lsa5lcfcfvfi65cwiok4pkqm.ipfs.infura-ipfs.io/) to view it in the browser.
 
-## video
+## Video
+
+https://youtu.be/JXzrVxF9OFY
 
 ## Available Scripts
 
@@ -25,4 +27,4 @@ You will also see any lint errors in the console.
 
 ### `npm build`
 
-Builds the app for production to the `dist` folder.
+Builds the app for production to the `build` folder.

@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import BoardView from "./view/BoardView";
 import ContextProvider from "./context/ContextProvider";
 
 export default function App() {
-
   return (
     <ContextProvider>
       <BoardView />
